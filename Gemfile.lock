@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    gitignore (0.1.0)
+    nokogiri (1.13.10-x86_64-linux)
+      racc (~> 1.4)
+    racc (1.6.2)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  gitignore (~> 0.1.0)
+  nokogiri (~> 1.13.10)
+
+BUNDLED WITH
+   2.3.26
