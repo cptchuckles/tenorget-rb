@@ -8,7 +8,7 @@ require 'nokogiri'
 
 require './wget'
 
-destdir = (ENV['XDG_HOME'] || ENV['HOME']) + '/pictures/tenor'
+destdir = File.join(Dir.home, 'pictures', 'tenor')
 
 while (arg = ARGV.shift)
   case arg
@@ -42,7 +42,9 @@ ARGF.read.lines.each do |line|
   formats = %w[avi mp4 mkv webm]
   best_source = sources.max_by { |s| formats.index { |ext| s.end_with? ext } || 0 }
 
-  destfile = File.join(destdir, File.basename(best_source))
+  ext = File.extname(best_source)
+  filename = "#{File.basename(best_source, ext)}-#{File.basename(File.dirname(best_source))}#{ext}"
+  destfile = File.join(destdir, filename)
 
   if File.exist? destfile
     puts "#{destfile} exists already. Skipping download of #{best_source}"
