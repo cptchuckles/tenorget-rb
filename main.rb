@@ -43,7 +43,7 @@ ARGF.read.lines.each do |line|
   best_source = sources.max_by { |s| formats.index { |ext| s.end_with? ext } || 0 }
 
   ext = File.extname(best_source)
-  filename = "#{File.basename(best_source, ext)}-#{File.basename(File.dirname(best_source))}#{ext}"
+  filename = "#{File.basename(best_source, ext)}-#{best_source.split('/')[-2]}#{ext}"
   destfile = File.join(destdir, filename)
 
   if File.exist? destfile
