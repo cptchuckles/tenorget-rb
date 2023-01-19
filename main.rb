@@ -31,7 +31,7 @@ ARGF.read.lines.each do |line|
 
   code = res.code.to_i
   if code < 200 || 300 <= code
-    puts "Did not receive successful HTTP response. Code: #{code}"
+    warn "ERROR - received #{code} for #{line.chomp}"
     next
   end
 
@@ -47,7 +47,7 @@ ARGF.read.lines.each do |line|
   destfile = File.join(destdir, filename)
 
   if File.exist? destfile
-    puts "#{destfile} exists already. Skipping download of #{best_source}"
+    warn "#{destfile} exists already. Skipping download of #{best_source}"
     next
   end
 
