@@ -17,12 +17,12 @@ while (arg = ARGV.shift)
   when '--'
     break
   else
-    ARGV.push arg
+    ARGV.push(arg)
     break
   end
 end
 
-Dir.mkdir(destdir) unless Dir.exist? destdir
+Dir.mkdir(destdir) unless Dir.exist?(destdir)
 
 ARGF.read.lines.each do |line|
   url = URI.parse(line.chomp)
@@ -37,7 +37,8 @@ ARGF.read.lines.each do |line|
 
   doc = Nokogiri::HTML5.parse(res.body)
 
-  sources = doc.css('meta[property="og:video"]').filter_map { |meta| meta.attributes['content'].value }
+  sources = doc.css('meta[property="og:video"]')
+               .filter_map { |meta| meta.attributes['content'].value }
 
   formats = %w[avi mp4 mkv webm]
   best_source = sources.max_by { |s| formats.index { |ext| s.end_with? ext } || 0 }
@@ -46,7 +47,7 @@ ARGF.read.lines.each do |line|
   filename = "#{File.basename(best_source, ext)}-#{best_source.split('/')[-2]}#{ext}"
   destfile = File.join(destdir, filename)
 
-  if File.exist? destfile
+  if File.exist?(destfile)
     warn "#{destfile} exists already. Skipping download of #{best_source}"
     next
   end
