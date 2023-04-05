@@ -40,8 +40,8 @@ ARGF.read.lines.each do |line|
   sources = doc.css('meta[property="og:video"]')
                .filter_map { |meta| meta.attributes['content'].value }
 
-  formats = %w[avi mp4 mkv webm]
-  best_source = sources.max_by { |s| formats.index { |ext| s.end_with? ext } || 0 }
+  formats = %w[webm mkv mp4 avi]
+  best_source = sources.min_by { |s| formats.index { |ext| s.end_with?(ext) } || formats.count }
 
   ext = File.extname(best_source)
   filename = "#{File.basename(best_source, ext)}-#{best_source.split('/')[-2]}#{ext}"
